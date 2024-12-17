@@ -1,0 +1,52 @@
+.cmp-copy-container {
+  margin: 1em 0;
+}
+
+.cmp-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  padding: 0.6em 1em;
+  background: #0085ba;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.cmp-copy-btn:hover {
+  background: #006799;
+}
+
+.cmp-copy-btn .icon {
+  margin-right: 0.5em;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  position: absolute;
+  left: 0.7em;
+}
+
+.cmp-copy-btn .icon-copy {
+  opacity: 1;
+  transform: scale(1);
+  position: static;
+}
+
+.cmp-copy-btn.copied .icon-copy {
+  opacity: 0;
+  transform: scale(0.8);
+  position: absolute;
+}
+
+.cmp-copy-btn.copied .icon-check {
+  opacity: 1;
+  transform: scale(1);
+  position: static;
+}
+
+.cmp-copy-btn .copy-text {
+  margin-left: 1.8em;
+}
