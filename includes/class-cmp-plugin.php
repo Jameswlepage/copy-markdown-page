@@ -5,7 +5,6 @@ if (! defined('ABSPATH')) {
 
 class CMP_Plugin
 {
-
     private static $instance = null;
     private $option_name = 'copy_markdown_page_settings';
 
@@ -38,9 +37,9 @@ class CMP_Plugin
     public function activate()
     {
         $default = array(
-            'post_types'   => array('post'),
-            'auto_insert'  => 'none',
-            'button_text'  => 'Copy Page',
+            'post_types'  => array('post'),
+            'auto_insert' => 'none',
+            'button_text' => 'Copy Page',
         );
         if (! get_option($this->option_name)) {
             add_option($this->option_name, $default);
@@ -56,12 +55,23 @@ class CMP_Plugin
                 // Enqueue Turndown from CDN
                 wp_enqueue_script('turndown-js', 'https://unpkg.com/turndown/dist/turndown.js', array(), null, true);
 
+                // Gather post data for front matter
+                global $post;
+                $postTitle = get_the_title($post);
+                $postUrl   = get_permalink($post);
+                $postSlug  = get_post_field('post_name', $post);
+                $postDate  = get_the_date('c', $post);
+
                 // Enqueue our JS
                 wp_enqueue_script('cmp-copy-js', CMP_PLUGIN_URL . 'assets/js/copy.js', array('turndown-js'), '1.0.0', true);
 
-                // Localize script to supply button text (if needed)
+                // Localize script to supply button text and post data
                 wp_localize_script('cmp-copy-js', 'cmpCopySettings', array(
                     'buttonText' => isset($options['button_text']) ? $options['button_text'] : 'Copy Page',
+                    'postTitle'  => $postTitle,
+                    'postUrl'    => $postUrl,
+                    'postSlug'   => $postSlug,
+                    'postDate'   => $postDate,
                 ));
 
                 // Enqueue CSS

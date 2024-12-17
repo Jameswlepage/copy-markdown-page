@@ -16,7 +16,18 @@ document.addEventListener('DOMContentLoaded', function () {
         var htmlContent = contentEl.innerHTML;
         var markdown = turndownService.turndown(htmlContent);
 
-        navigator.clipboard.writeText(markdown).then(function () {
+        // Prepend front matter
+        var frontMatter =
+            '---\n' +
+            'title: ' + (cmpCopySettings.postTitle || '') + '\n' +
+            'slug: ' + (cmpCopySettings.postSlug || '') + '\n' +
+            'url: ' + (cmpCopySettings.postUrl || '') + '\n' +
+            'pubdate: ' + (cmpCopySettings.postDate || '') + '\n' +
+            '---\n\n';
+
+        var fullContent = frontMatter + markdown;
+
+        navigator.clipboard.writeText(fullContent).then(function () {
             button.classList.add('copied');
             setTimeout(function () {
                 button.classList.remove('copied');

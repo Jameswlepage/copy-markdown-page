@@ -7,17 +7,17 @@
   align-items: center;
   position: relative;
   padding: 0.6em 1em;
-  background: #0085ba;
+  background: var(--wp--preset--color--primary);
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  color: #fff;
+  color: var(--wp--preset--color--foreground);
   font-size: 14px;
   transition: background-color 0.3s ease;
 }
 
 .cmp-copy-btn:hover {
-  background: #006799;
+  background: var(--wp--preset--color--secondary);
 }
 
 .cmp-copy-btn .icon {
