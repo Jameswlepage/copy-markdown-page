@@ -8,6 +8,12 @@ class CMP_Settings
 
     private static $option_name = '';
 
+    private static $defaults = array(
+        'post_types'  => array('post'),
+        'auto_insert' => 'none',
+        'button_text' => 'Copy Page'
+    );
+
     public static function init($option_name)
     {
         self::$option_name = $option_name;
@@ -69,10 +75,10 @@ class CMP_Settings
 
         // Auto insert
         $allowed_positions = array('none', 'before', 'after');
-        $output['auto_insert'] = in_array($input['auto_insert'], $allowed_positions, true) ? $input['auto_insert'] : 'none';
+        $output['auto_insert'] = in_array($input['auto_insert'], $allowed_positions, true) ? $input['auto_insert'] : self::$defaults['auto_insert'];
 
         // Button text
-        $output['button_text'] = isset($input['button_text']) ? sanitize_text_field($input['button_text']) : 'Copy Page';
+        $output['button_text'] = isset($input['button_text']) ? sanitize_text_field($input['button_text']) : self::$defaults['button_text'];
 
         return $output;
     }
@@ -139,5 +145,10 @@ class CMP_Settings
         submit_button();
         echo '</form>';
         echo '</div>';
+    }
+
+    public static function get_defaults()
+    {
+        return self::$defaults;
     }
 }
