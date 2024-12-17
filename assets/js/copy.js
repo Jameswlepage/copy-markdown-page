@@ -13,7 +13,16 @@ document.addEventListener('DOMContentLoaded', function () {
     var turndownService = new TurndownService();
 
     button.addEventListener('click', function () {
-        var htmlContent = contentEl.innerHTML;
+
+        var tempContent = contentEl.cloneNode(true);
+
+
+        var buttonContainer = tempContent.querySelector('.cmp-copy-container');
+        if (buttonContainer) {
+            buttonContainer.remove();
+        }
+
+        var htmlContent = tempContent.innerHTML;
         var markdown = turndownService.turndown(htmlContent);
 
         // Prepend front matter
